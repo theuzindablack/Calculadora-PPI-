@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPI guru pior que hack</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --surface-color: #161b22;
+            --surface-border: #30363d;
+            --primary-color: #2f81f7;
+            --primary-hover: #1f6feb;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --danger-color: #f85149;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 16px;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .config-icon-btn {
+            background: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+
+        .config-icon-btn:hover {
+            background-color: var(--surface-border);
+        }
+
+        .config-icon-btn svg {
+            width: 26px;
+            height: 26px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .input-group {
+            background-color: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.15);
+        }
+
+        .input-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .input-group input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 17px;
+            font-weight: 600;
+            outline: none;
+            width: 100%;
+        }
+
+        .input-group input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        button svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .btn-detect {
+            flex: 1;
+            background-color: var(--surface-color);
+            color: var(--primary-color);
+            border: 1px solid var(--surface-border);
+        }
+
+        .btn-detect:hover {
+            opacity: 0.8;
+        }
+
+        .btn-clear {
+            flex: 1;
+            background-color: rgba(248, 81, 73, 0.1);
+            color: var(--danger-color);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+        }
+
+        .btn-clear:hover {
+            background-color: rgba(248, 81, 73, 0.2);
+        }
+
+        .result-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            padding: 18px;
+            border-radius: var(--radius);
+            border: none;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(47, 129, 247, 0.3);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .result-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .result-btn:active {
+            transform: scale(0.99);
+        }
+
+        .bottom-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-details, .btn-share {
+            flex: 1;
+            background-color: var(--surface-color);
+            color: var(--text-main);
+            border: 1px solid var(--surface-border);
+        }
+
+        .btn-details:hover, .btn-share:hover {
+            background-color: var(--surface-border);
+        }
+
+        /* Telas Modais */
+        .screen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: none;
+            flex-direction: column;
+            padding: 24px 16px;
+            overflow-y: auto;
+            z-index: 2000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            max-width: 440px;
+            width: 100%;
+            margin: 0 auto 20px auto;
+        }
+
+        .back-btn {
+            background: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .back-btn:hover {
+            background-color: var(--surface-border);
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+            background-color: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: var(--radius);
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--surface-border);
+            font-size: 14px;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Botão Estilo Switch (Chave) Aumentado */
+        .switch-btn {
+            background: #21262d;
+            border: 2px solid var(--surface-border);
+            color: var(--text-muted);
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .switch-btn.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 12px rgba(47, 129, 247, 0.4);
+        }
+
+        /* Notificação Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: var(--surface-color);
+            color: var(--text-main);
+            border: 1px solid var(--surface-border);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 3000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="header-top">
+            <h1>PPI guru pior que hack</h1>
+            <button class="config-icon-btn" onclick="abrirConfig()" title="Configurações">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="container" id="mainScreen">
+            <div class="input-group">
+                <label for="inches">Tamanho da Tela (polegadas)</label>
+                <input type="number" id="inches" step="any" placeholder="Ex: 6.5" oninput="calcularPPI()">
+            </div>
+
+            <div class="input-group">
+                <label for="heightPx">Altura da Tela (pixels)</label>
+                <input type="number" id="heightPx" placeholder="Ex: 2400" oninput="calcularPPI()">
+            </div>
+
+            <div class="input-group">
+                <label for="widthPx">Largura da Tela (pixels)</label>
+                <input type="number" id="widthPx" placeholder="Ex: 1080" oninput="calcularPPI()">
+            </div>
+
+            <div class="button-group">
+                <button class="btn-detect" onclick="aplicarExemplo()" title="Preenche apenas se estiver vazio">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    EXEMPLO
+                </button>
+                
+                <button class="btn-clear" onclick="limparCampos()">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    LIMPAR
+                </button>
+            </div>
+
+            <button class="result-btn" id="ppiResult" onclick="copiarResultado()">
+                0 PPI
+            </button>
+
+            <div class="bottom-buttons">
+                <button class="btn-details" onclick="abrirDetalhes()">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Detalhes
+                </button>
+                <button class="btn-share" onclick="compartilharResultado()">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Compartilhar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Detalhes -->
+    <div class="screen-modal" id="detailsScreen">
+        <div class="modal-header">
+            <button class="back-btn" onclick="fecharDetalhes()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
+            <h2>Detalhes Técnicos</h2>
+        </div>
+
+        <div class="modal-card">
+            <div class="detail-item">
+                <span class="detail-label">Tamanho da Tela</span>
+                <span class="detail-value" id="detTamanho">0 in</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Altura da Tela</span>
+                <span class="detail-value" id="detAltura">0 px</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Largura da Tela</span>
+                <span class="detail-value" id="detLargura">0 px</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">PPI Exato</span>
+                <span class="detail-value" id="detPPI">0</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Pitch de Ponto</span>
+                <span class="detail-value" id="detPitch">0 mm</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">PPI²</span>
+                <span class="detail-value" id="detPPI2">0</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Megapixels</span>
+                <span class="detail-value" id="detMP">0</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Área de Exibição</span>
+                <span class="detail-value" id="detAreaIn">0 in²</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Área de Exibição</span>
+                <span class="detail-value" id="detAreaCm">0 cm²</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Proporção</span>
+                <span class="detail-value" id="detProporcao">0:0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Configurações -->
+    <div class="screen-modal" id="configScreen">
+        <div class="modal-header">
+            <button class="back-btn" onclick="fecharConfig()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
+            <h2>Configurações</h2>
+        </div>
+
+        <div class="modal-card">
+            <div class="detail-item">
+                <span class="detail-label">Full lata</span>
+                <button class="switch-btn" id="fullLataBtn" onclick="alternarFullLata()">DESATIVADO</button>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Versão do App</span>
+                <span class="detail-value">1.1.0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Copiado!</div>
+
+    <script>
+        function calcularPPI() {
+            const polegadas = parseFloat(document.getElementById('inches').value) || 0;
+            const altura = parseFloat(document.getElementById('heightPx').value) || 0;
+            const largura = parseFloat(document.getElementById('widthPx').value) || 0;
+            const ppiResult = document.getElementById('ppiResult');
+
+            if (polegadas > 0 && altura > 0 && largura > 0) {
+                const ppi = Math.sqrt(Math.pow(largura, 2) + Math.pow(altura, 2)) / polegadas;
+                ppiResult.textContent = ppi.toFixed(0) + " PPI";
+            } else {
+                ppiResult.textContent = "0 PPI";
+            }
+        }
+
+        function abrirDetalhes() {
+            const polegadas = parseFloat(document.getElementById('inches').value) || 0;
+            const altura = parseFloat(document.getElementById('heightPx').value) || 0;
+            const largura = parseFloat(document.getElementById('widthPx').value) || 0;
+
+            let ppi = 0;
+            if (polegadas > 0 && altura > 0 && largura > 0) {
+                ppi = Math.sqrt(Math.pow(largura, 2) + Math.pow(altura, 2)) / polegadas;
+            }
+
+            document.getElementById('detTamanho').textContent = polegadas + " in";
+            document.getElementById('detAltura').textContent = altura.toLocaleString() + " px";
+            document.getElementById('detLargura').textContent = largura.toLocaleString() + " px";
+            document.getElementById('detPPI').textContent = ppi > 0 ? ppi.toFixed(2) : "0";
+            
+            const pitch = ppi > 0 ? (25.4 / ppi) : 0;
+            document.getElementById('detPitch').textContent = pitch.toFixed(4) + " mm";
+            
+            document.getElementById('detPPI2').textContent = ppi > 0 ? Math.round(Math.pow(ppi, 2)).toLocaleString() : "0";
+            
+            const mp = (altura * largura) / 1000000;
+            document.getElementById('detMP').textContent = mp.toFixed(2);
+
+            const widthIn = ppi > 0 ? largura / ppi : 0;
+            const heightIn = ppi > 0 ? altura / ppi : 0;
+            const areaInVal = widthIn * heightIn;
+            const areaCmVal = areaInVal * 6.4516;
+
+            document.getElementById('detAreaIn').textContent = `${widthIn.toFixed(2)} x ${heightIn.toFixed(2)} = ${areaInVal.toFixed(1)} in²`;
+            document.getElementById('detAreaCm').textContent = `${(widthIn * 2.54).toFixed(2)} x ${(heightIn * 2.54).toFixed(2)} = ${areaCmVal.toFixed(1)} cm²`;
+
+            if (largura > 0 && altura > 0) {
+                const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                const divisor = gcd(altura, largura);
+                document.getElementById('detProporcao').textContent = `${(largura/divisor).toFixed(0)}:${(altura/divisor).toFixed(0)}`;
+            } else {
+                document.getElementById('detProporcao').textContent = "0:0";
+            }
+
+            document.getElementById('detailsScreen').style.display = 'flex';
+        }
+
+        fu
