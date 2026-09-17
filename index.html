@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -567,4 +567,81 @@
             document.getElementById('detailsScreen').style.display = 'flex';
         }
 
-        fu
+        function fecharDetalhes() {
+            document.getElementById('detailsScreen').style.display = 'none';
+        }
+
+        function abrirConfig() {
+            document.getElementById('configScreen').style.display = 'flex';
+        }
+
+        function fecharConfig() {
+            document.getElementById('configScreen').style.display = 'none';
+        }
+
+        function alternarFullLata() {
+            const btn = document.getElementById('fullLataBtn');
+            btn.classList.toggle('active');
+
+            if (btn.classList.contains('active')) {
+                btn.textContent = "ATIVADO";
+                mostrarToast("Full lata ativado! 🔥");
+            } else {
+                btn.textContent = "DESATIVADO";
+                mostrarToast("Full lata desativado!");
+            }
+        }
+
+        function aplicarExemplo() {
+            const inc = document.getElementById('inches');
+            const h = document.getElementById('heightPx');
+            const w = document.getElementById('widthPx');
+
+            if (!inc.value && !h.value && !w.value) {
+                inc.value = 6.5;
+                h.value = 2400;
+                w.value = 1080;
+                calcularPPI();
+            }
+        }
+
+        function limparCampos() {
+            document.getElementById('inches').value = '';
+            document.getElementById('heightPx').value = '';
+            document.getElementById('widthPx').value = '';
+            document.getElementById('ppiResult').textContent = '0 PPI';
+        }
+
+        function mostrarToast(mensagem = "Copiado!") {
+            const toast = document.getElementById('toast');
+            toast.textContent = mensagem;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        function copiarResultado() {
+            const ppiText = document.getElementById('ppiResult').textContent;
+            navigator.clipboard.writeText(ppiText).then(() => {
+                mostrarToast("Copiado!");
+            }).catch(() => {
+                mostrarToast("Copiado!");
+            });
+        }
+
+        function compartilharResultado() {
+            const ppi = document.getElementById('ppiResult').textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'PPI guru pior que hack',
+                    text: 'O resultado do cálculo foi de ' + ppi,
+                }).catch(() => {});
+            } else {
+                copiarResultado();
+            }
+        }
+    </script>
+
+</body>
+</html>
